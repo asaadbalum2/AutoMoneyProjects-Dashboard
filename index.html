@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMoneyProjects - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a25;
+            --accent-green: #00ff88;
+            --accent-blue: #00d4ff;
+            --accent-purple: #a855f7;
+            --accent-orange: #ff6b35;
+            --text-primary: #ffffff;
+            --text-secondary: #8888aa;
+            --border-color: #2a2a3a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at top left, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.active {
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        
+        .project-card.quizbot::before {
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+        }
+        
+        .project-card.globaldub::before {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+        }
+        
+        .project-card.trendmerch::before {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-orange));
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.1);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .project-icon {
+            font-size: 2rem;
+        }
+        
+        .project-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-item {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .schedule {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .schedule-title {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .schedule-times {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .time-badge {
+            background: var(--bg-card);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .link-btn.primary {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            color: var(--bg-primary);
+        }
+        
+        .link-btn.secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .link-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .summary-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .summary-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .summary-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+        
+        .summary-stat .value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .summary-stat .label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .refresh-time {
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .status-bar { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 AUTOMONEYPROJECTS</h1>
+            <p class="tagline">Fully Autonomous Money-Making Machines</p>
+            
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-dot active"></span>
+                    <span>All Systems Operational</span>
+                </div>
+                <div class="status-item">
+                    <span>🤖 AI-Powered</span>
+                </div>
+                <div class="status-item">
+                    <span>⚡ 18 Runs/Day</span>
+                </div>
+            </div>
+        </header>
+        
+        <section class="summary-section">
+            <h2 class="summary-title">📊 Daily Output</h2>
+            <div class="summary-grid">
+                <div class="summary-stat">
+                    <div class="value">18</div>
+                    <div class="label">Videos per Day</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="value">60</div>
+                    <div class="label">Designs per Day</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="value">$0</div>
+                    <div class="label">Operating Cost</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="value">∞</div>
+                    <div class="label">Potential</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="projects-grid">
+            <!-- QuizBot Card -->
+            <div class="project-card quizbot">
+                <div class="project-header">
+                    <span class="project-name">QuizBot-Shorts</span>
+                    <span class="project-icon">🎬</span>
+                </div>
+                <p class="project-desc">
+                    AI-powered "Would You Rather" video generator. Creates viral quiz videos and uploads directly to YouTube.
+                </p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">6x</div>
+                        <div class="stat-label">Runs/Day</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">Videos/Day</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">AI</div>
+                        <div class="stat-label">Groq LLM</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Auto</div>
+                        <div class="stat-label">YouTube Upload</div>
+                    </div>
+                </div>
+                <div class="schedule">
+                    <div class="schedule-title">⏰ Schedule (UTC)</div>
+                    <div class="schedule-times">
+                        <span class="time-badge">00:00</span>
+                        <span class="time-badge">04:00</span>
+                        <span class="time-badge">08:00</span>
+                        <span class="time-badge">12:00</span>
+                        <span class="time-badge">16:00</span>
+                        <span class="time-badge">20:00</span>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://www.youtube.com/channel/UC4Y6O0ubwl0_ZQsLq2EteTQ" target="_blank" class="link-btn primary">📺 YouTube Channel</a>
+                    <a href="https://github.com/asaadbalum2/QuizBot-Shorts/actions" target="_blank" class="link-btn secondary">⚡ Workflows</a>
+                    <a href="https://github.com/asaadbalum2/QuizBot-Shorts" target="_blank" class="link-btn secondary">📁 Repo</a>
+                </div>
+            </div>
+            
+            <!-- GlobalDub Card -->
+            <div class="project-card globaldub">
+                <div class="project-header">
+                    <span class="project-name">GlobalDub</span>
+                    <span class="project-icon">🌍</span>
+                </div>
+                <p class="project-desc">
+                    Automated translation & dubbing pipeline. Takes any YouTube Short, translates and dubs to 12+ languages.
+                </p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">12+</div>
+                        <div class="stat-label">Languages</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Auto</div>
+                        <div class="stat-label">Upload</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Whisper</div>
+                        <div class="stat-label">Transcription</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Edge</div>
+                        <div class="stat-label">TTS</div>
+                    </div>
+                </div>
+                <div class="schedule">
+                    <div class="schedule-title">🎯 Mode</div>
+                    <div class="schedule-times">
+                        <span class="time-badge">On-Demand via URL Input</span>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://www.youtube.com/channel/UC4Y6O0ubwl0_ZQsLq2EteTQ" target="_blank" class="link-btn primary">📺 YouTube</a>
+                    <a href="https://github.com/asaadbalum2/GlobalDub/actions" target="_blank" class="link-btn secondary">⚡ Run Now</a>
+                    <a href="https://github.com/asaadbalum2/GlobalDub" target="_blank" class="link-btn secondary">📁 Repo</a>
+                </div>
+            </div>
+            
+            <!-- TrendMerch Card -->
+            <div class="project-card trendmerch">
+                <div class="project-header">
+                    <span class="project-name">TrendMerch</span>
+                    <span class="project-icon">👕</span>
+                </div>
+                <p class="project-desc">
+                    AI T-shirt design generator. Fetches Google Trends, creates designs with FLUX AI, uploads to GitHub Releases.
+                </p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">6x</div>
+                        <div class="stat-label">Runs/Day</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">60</div>
+                        <div class="stat-label">Designs/Day</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">FLUX</div>
+                        <div class="stat-label">AI Model</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Styles</div>
+                    </div>
+                </div>
+                <div class="schedule">
+                    <div class="schedule-title">⏰ Schedule (UTC)</div>
+                    <div class="schedule-times">
+                        <span class="time-badge">03:00</span>
+                        <span class="time-badge">07:00</span>
+                        <span class="time-badge">11:00</span>
+                        <span class="time-badge">15:00</span>
+                        <span class="time-badge">19:00</span>
+                        <span class="time-badge">23:00</span>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://github.com/asaadbalum2/TrendMerch/releases" target="_blank" class="link-btn primary">📦 Designs</a>
+                    <a href="https://github.com/asaadbalum2/TrendMerch/actions" target="_blank" class="link-btn secondary">⚡ Workflows</a>
+                    <a href="https://github.com/asaadbalum2/TrendMerch" target="_blank" class="link-btn secondary">📁 Repo</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🚀 Powered by GitHub Actions • Zero Infrastructure Cost</p>
+            <p class="refresh-time">Dashboard auto-updates • Last refresh: <span id="timestamp"></span></p>
+        </footer>
+    </div>
+    
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Auto-refresh every 5 minutes
+        setInterval(() => {
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        }, 300000);
+    </script>
+</body>
+</html>
+
