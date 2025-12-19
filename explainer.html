@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMoney Projects - How It Works</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0f14;
+            --bg-card: #1a1a24;
+            --accent: #00ff88;
+            --accent-2: #00d4ff;
+            --accent-3: #a855f7;
+            --text: #ffffff;
+            --text-dim: #8888aa;
+            --border: #2a2a3a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem;
+            color: var(--accent-2);
+        }
+
+        p {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        /* Project Cards */
+        .project {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .project.quizbot::before { background: var(--accent-3); }
+        .project.globaldub::before { background: var(--accent-2); }
+        .project.trendmerch::before { background: #ff6b35; }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-icon {
+            font-size: 2rem;
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Flow diagram */
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .flow-step {
+            background: var(--bg);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        .flow-arrow {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Money section */
+        .money-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .money-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .money-item {
+            text-align: center;
+        }
+
+        .money-source {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+
+        .money-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tech-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .tech-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .tech-desc {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-dim);
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            margin-top: 2rem;
+        }
+
+        .cta h2 {
+            justify-content: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-2));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translateX(-5px);
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 1rem; }
+            .flow { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <h1>💰 AutoMoney Projects</h1>
+            <p>Three fully autonomous, AI-powered content generation systems that create and monetize content 24/7 without any human intervention.</p>
+            <span class="badge">✨ 100% Free to Run • Fully Autonomous • Passive Income</span>
+        </section>
+
+        <!-- Overview -->
+        <section>
+            <h2>📋 What Is This?</h2>
+            <p>AutoMoney is a collection of three interconnected projects that leverage free AI tools and cloud services to generate content automatically. Once deployed, these systems run entirely on their own using GitHub Actions (free tier), creating a self-sustaining content generation pipeline.</p>
+            
+            <h3>Key Features</h3>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>🤖 Fully Autonomous</td>
+                    <td>Runs 24/7 on GitHub Actions - no server or local machine needed</td>
+                </tr>
+                <tr>
+                    <td>💵 Zero Cost</td>
+                    <td>Uses only free tiers: GitHub Actions, Groq AI, Edge-TTS, HuggingFace</td>
+                </tr>
+                <tr>
+                    <td>📈 Scalable</td>
+                    <td>Multiple channels, languages, and platforms for maximum reach</td>
+                </tr>
+                <tr>
+                    <td>🔒 Stealth Mode</td>
+                    <td>Randomized execution times to mimic human behavior</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Project 1: QuizBot -->
+        <section>
+            <h2>🧠 Project 1: QuizBot Shorts</h2>
+            
+            <div class="project quizbot">
+                <div class="project-header">
+                    <span class="project-icon">🧠</span>
+                    <span class="project-name">QuizBot Shorts</span>
+                </div>
+                <p>Generates engaging "Would You Rather" quiz videos for YouTube Shorts. Each video presents viewers with two options and shows voting percentages, creating highly engaging, shareable content.</p>
+                
+                <h3>How It Works</h3>
+                <div class="flow">
+                    <span class="flow-step">🤖 Groq AI generates questions</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">🔊 Edge-TTS creates voiceover</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">🎬 MoviePy renders video</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">📤 Auto-upload to YouTube</span>
+                </div>
+                
+                <h3>Output</h3>
+                <table>
+                    <tr><th>Metric</th><th>Value</th></tr>
+                    <tr><td>Videos per day</td><td>18 videos (6 runs × 3 videos)</td></tr>
+                    <tr><td>Video length</td><td>15-30 seconds (Shorts format)</td></tr>
+                    <tr><td>Content type</td><td>Would You Rather questions</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Project 2: GlobalDub -->
+        <section>
+            <h2>🌍 Project 2: GlobalDub</h2>
+            
+            <div class="project globaldub">
+                <div class="project-header">
+                    <span class="project-icon">🌍</span>
+                    <span class="project-name">GlobalDub</span>
+                </div>
+                <p>Automatically finds trending YouTube Shorts, translates them to different languages, generates AI voiceovers, and uploads the dubbed versions. Tap into international audiences with zero translation effort.</p>
+                
+                <h3>How It Works</h3>
+                <div class="flow">
+                    <span class="flow-step">🔍 Find trending Shorts</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">📥 Download video</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">🎤 Whisper transcribes audio</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">🌐 Translate to target language</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">🔊 Edge-TTS creates new voiceover</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">📤 Upload to YouTube</span>
+                </div>
+                
+                <h3>Target Languages</h3>
+                <p>Spanish, Portuguese, Hindi, Arabic, French, German - targeting billions of non-English speakers.</p>
+            </div>
+        </section>
+
+        <!-- Project 3: TrendMerch -->
+        <section>
+            <h2>👕 Project 3: TrendMerch</h2>
+            
+            <div class="project trendmerch">
+                <div class="project-header">
+                    <span class="project-icon">👕</span>
+                    <span class="project-name">TrendMerch</span>
+                </div>
+                <p>Monitors Google Trends for hot topics, generates AI artwork based on trending keywords, and creates print-ready T-shirt designs. Upload to print-on-demand services like Redbubble, TeePublic, or Merch by Amazon.</p>
+                
+                <h3>How It Works</h3>
+                <div class="flow">
+                    <span class="flow-step">📊 PyTrends fetches trending topics</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">🤖 AI generates design prompt</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">🎨 FLUX creates artwork</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">✂️ rembg removes background</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">📦 Save to GitHub Releases</span>
+                </div>
+                
+                <h3>Output</h3>
+                <table>
+                    <tr><th>Metric</th><th>Value</th></tr>
+                    <tr><td>Designs per day</td><td>60 designs (6 runs × 10 designs)</td></tr>
+                    <tr><td>Format</td><td>PNG with transparent background</td></tr>
+                    <tr><td>Styles</td><td>Vaporwave, Minimalist, Graffiti, Neon, Vintage, Cartoon</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- How Money Is Made -->
+        <section>
+            <h2>💵 How These Projects Make Money</h2>
+            
+            <div class="money-card">
+                <h3 style="color: var(--accent); margin-top: 0;">Revenue Streams</h3>
+                <div class="money-grid">
+                    <div class="money-item">
+                        <div class="money-source">YouTube Ad Revenue</div>
+                        <div class="money-amount">$1-5 per 1K views</div>
+                    </div>
+                    <div class="money-item">
+                        <div class="money-source">YouTube Shorts Fund</div>
+                        <div class="money-amount">$100-10K/month</div>
+                    </div>
+                    <div class="money-item">
+                        <div class="money-source">T-Shirt Sales</div>
+                        <div class="money-amount">$2-8 per sale</div>
+                    </div>
+                    <div class="money-item">
+                        <div class="money-source">Rumble Revenue</div>
+                        <div class="money-amount">$0.50-2 per 1K views</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Monetization Requirements</h3>
+            <table>
+                <tr>
+                    <th>Platform</th>
+                    <th>Requirements</th>
+                    <th>Revenue Type</th>
+                </tr>
+                <tr>
+                    <td>YouTube Partner Program</td>
+                    <td>1,000 subscribers + 4,000 watch hours OR 10M Shorts views</td>
+                    <td>Ad revenue sharing</td>
+                </tr>
+                <tr>
+                    <td>YouTube Shorts Fund</td>
+                    <td>Active Shorts with high engagement</td>
+                    <td>Monthly bonus payments</td>
+                </tr>
+                <tr>
+                    <td>Rumble</td>
+                    <td>No minimum requirements</td>
+                    <td>Views-based payments</td>
+                </tr>
+                <tr>
+                    <td>Print-on-Demand</td>
+                    <td>Account on Redbubble/TeePublic/etc.</td>
+                    <td>Commission per sale</td>
+                </tr>
+            </table>
+
+            <h3>Projected Timeline to Revenue</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">Month 1-2: Content Building</div>
+                    <p>System generates 500+ videos and 1,800+ designs. Building library and gaining initial views.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Month 3-4: Algorithm Pickup</div>
+                    <p>Some videos go viral, subscriber count grows. Approaching monetization thresholds.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Month 5-6: Monetization</div>
+                    <p>YouTube Partner Program eligibility. First revenue from ads and Shorts fund.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Month 6+: Scaling</div>
+                    <p>Multiple channels, multiple languages. Compound growth as content library expands.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section>
+            <h2>🛠️ Technology Stack (All Free!)</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    <div class="tech-name">GitHub Actions</div>
+                    <div class="tech-desc">Free CI/CD & scheduling</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🧠</div>
+                    <div class="tech-name">Groq AI</div>
+                    <div class="tech-desc">Free LLM API</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔊</div>
+                    <div class="tech-name">Edge-TTS</div>
+                    <div class="tech-desc">Free text-to-speech</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎨</div>
+                    <div class="tech-name">HuggingFace FLUX</div>
+                    <div class="tech-desc">Free image generation</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎤</div>
+                    <div class="tech-name">Whisper</div>
+                    <div class="tech-desc">Free transcription</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🐍</div>
+                    <div class="tech-name">Python</div>
+                    <div class="tech-desc">Core language</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎬</div>
+                    <div class="tech-name">MoviePy</div>
+                    <div class="tech-desc">Video editing</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📺</div>
+                    <div class="tech-name">YouTube API</div>
+                    <div class="tech-desc">Auto uploads</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="cta">
+            <h2>🚀 View Live Dashboard</h2>
+            <p>Monitor all projects in real-time with our live status dashboard.</p>
+            <a href="index.html" class="cta-button">Open Dashboard →</a>
+        </div>
+    </div>
+</body>
+</html>
+
