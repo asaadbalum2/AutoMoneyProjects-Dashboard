@@ -372,15 +372,15 @@
         <section>
             <h2 class="section-title">🚀 Active Projects</h2>
             <div class="projects-grid">
-                <!-- QuizBot -->
+                <!-- ViralShorts Factory -->
                 <div class="project-card quizbot">
                     <div class="project-header">
-                        <div class="project-icon">🧠</div>
-                        <span class="project-name">QuizBot Shorts</span>
+                        <div class="project-icon">🎬</div>
+                        <span class="project-name">ViralShorts Factory</span>
                         <span class="project-status status-active" id="quizbot-status">Active</span>
                     </div>
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                        AI-generated "Would You Rather" quiz videos for YouTube Shorts
+                        AI-generated viral videos: Would You Rather, Facts, Motivation & more
                     </p>
                     <div class="project-stats">
                         <div class="project-stat">
@@ -496,6 +496,64 @@
             <h2 class="section-title">📋 Recent Workflow Runs</h2>
             <div class="activity-list" id="activity-list">
                 <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">🔑 API & Token Status</h2>
+            <div class="projects-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <div class="project-card" id="youtube-token-status">
+                    <div class="project-header">
+                        <div class="project-icon" style="background: rgba(255, 0, 0, 0.2);">🔴</div>
+                        <span class="project-name">YouTube OAuth</span>
+                        <span class="project-status status-warning" id="yt-token-badge">Check Required</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                        <strong>⚠️ Important:</strong> YouTube OAuth tokens in "Testing" mode may expire if unused for 7 days.
+                    </p>
+                    <p style="color: #ffaa00; font-size: 0.85rem;">
+                        💡 Run a test workflow every few days to keep tokens active. If uploads fail, re-run <code>get_youtube_token.py</code>
+                    </p>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">🟢</div>
+                        <span class="project-name">Groq AI</span>
+                        <span class="project-status status-active">No Expiration</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">API key does not expire. Free tier: 14,400 requests/day.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">🟢</div>
+                        <span class="project-name">Gemini AI</span>
+                        <span class="project-status status-active">No Expiration</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">API key does not expire. Free tier: 60 requests/minute.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">🟢</div>
+                        <span class="project-name">Pexels</span>
+                        <span class="project-status status-active">No Expiration</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">API key does not expire. 200 requests/hour.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">🟢</div>
+                        <span class="project-name">HuggingFace</span>
+                        <span class="project-status status-active">No Expiration</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">Token does not expire unless manually revoked.</p>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 170, 0, 0.1); border: 1px solid rgba(255, 170, 0, 0.3); border-radius: 8px;">
+                <p style="color: #ffaa00;">
+                    <strong>🔔 Renewal Reminder:</strong> Most APIs don't expire. The only concern is <strong>YouTube OAuth</strong> - 
+                    if the app stays in "Testing" mode, tokens may need refresh after 7 days of inactivity. 
+                    To prevent: ensure workflows run regularly, or publish the app for production.
+                </p>
             </div>
         </section>
 
