@@ -388,13 +388,14 @@
                             <div class="project-stat-label">Scheduled Runs/Day</div>
                         </div>
                         <div class="project-stat">
-                            <div class="project-stat-value">6*</div>
-                            <div class="project-stat-label">Max Uploads (Quota)</div>
+                            <div class="project-stat-value">2</div>
+                            <div class="project-stat-label">Platforms (YT + DM)</div>
                         </div>
                     </div>
-                    <p style="color: var(--text-secondary); font-size: 0.8rem;">*Limited by YouTube API quota. Generates 18 videos, uploads 6.</p>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem;">📈 Analytics feedback loop learns from views to improve content!</p>
                     <div class="project-links">
                         <a href="https://www.youtube.com/channel/UC4Y6O0ubwl0_ZQsLq2EteTQ" target="_blank" class="project-link">📺 YouTube</a>
+                        <a href="https://www.dailymotion.com/asaadbalum2" target="_blank" class="project-link">📹 Dailymotion</a>
                         <a href="https://github.com/asaadbalum2/ViralShorts-Factory/actions" target="_blank" class="project-link">⚙️ Workflows</a>
                         <a href="https://github.com/asaadbalum2/ViralShorts-Factory" target="_blank" class="project-link">💻 Source</a>
                     </div>
@@ -466,7 +467,14 @@
                         <div class="project-icon" style="background: rgba(255, 0, 0, 0.2);">📺</div>
                         <span class="project-name">YouTube Shorts</span>
                     </div>
-                    <p style="color: var(--text-secondary);">View all uploaded quiz videos (post-upload)</p>
+                    <p style="color: var(--text-secondary);">View all uploaded viral videos</p>
+                </a>
+                <a href="https://www.dailymotion.com/asaadbalum2" target="_blank" class="project-card" style="text-decoration: none; cursor: pointer;">
+                    <div class="project-header">
+                        <div class="project-icon" style="background: rgba(0, 195, 255, 0.2);">📹</div>
+                        <span class="project-name">Dailymotion Channel</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">Multi-platform reach (same content)</p>
                 </a>
                 <a href="https://github.com/asaadbalum2/TrendMerch/releases" target="_blank" class="project-card" style="text-decoration: none; cursor: pointer;">
                     <div class="project-header">
@@ -538,6 +546,14 @@
                         <span class="project-status status-active">No Expiration</span>
                     </div>
                     <p style="color: var(--text-secondary);">API key does not expire. 200 requests/hour.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">🟢</div>
+                        <span class="project-name">Dailymotion</span>
+                        <span class="project-status status-active">OAuth Active</span>
+                    </div>
+                    <p style="color: var(--text-secondary);">Multi-platform uploads enabled. ~30 videos/day limit.</p>
                 </div>
                 <div class="project-card">
                     <div class="project-header">
@@ -710,15 +726,23 @@
                 }
             } catch (e) { console.error('Artifacts fetch error:', e); }
 
-            // Add YouTube channel link
+            // Add platform channel links
             contentHtml += `
                 <div class="activity-item" style="border-top: 1px solid var(--border);">
                     <div class="activity-icon" style="background: rgba(255, 0, 0, 0.2); color: #ff0000;">📺</div>
                     <div class="activity-content">
-                        <div class="activity-title">YouTube Channel (All Uploaded Videos)</div>
-                        <div class="activity-time">Uploaded videos appear here</div>
+                        <div class="activity-title">YouTube Shorts Channel</div>
+                        <div class="activity-time">All uploaded videos</div>
                     </div>
                     <a href="https://www.youtube.com/channel/UC4Y6O0ubwl0_ZQsLq2EteTQ/shorts" target="_blank" class="activity-link">Watch →</a>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: rgba(0, 195, 255, 0.2); color: #00c3ff;">📹</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Dailymotion Channel</div>
+                        <div class="activity-time">Same content, more reach</div>
+                    </div>
+                    <a href="https://www.dailymotion.com/asaadbalum2" target="_blank" class="activity-link">Watch →</a>
                 </div>
             `;
 
