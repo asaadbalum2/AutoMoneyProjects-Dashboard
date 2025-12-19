@@ -153,7 +153,7 @@
             background: linear-gradient(90deg, var(--card-accent), transparent);
         }
 
-        .project-card.quizbot { --card-accent: var(--accent-purple); }
+        .project-card.viralshorts { --card-accent: var(--accent-purple); }
         .project-card.globaldub { --card-accent: var(--accent-blue); }
         .project-card.trendmerch { --card-accent: var(--accent-orange); }
 
@@ -173,7 +173,7 @@
             font-size: 1.5rem;
         }
 
-        .project-card.quizbot .project-icon { background: rgba(168, 85, 247, 0.2); }
+        .project-card.viralshorts .project-icon { background: rgba(168, 85, 247, 0.2); }
         .project-card.globaldub .project-icon { background: rgba(0, 212, 255, 0.2); }
         .project-card.trendmerch .project-icon { background: rgba(255, 107, 53, 0.2); }
 
@@ -373,11 +373,11 @@
             <h2 class="section-title">🚀 Active Projects</h2>
             <div class="projects-grid">
                 <!-- ViralShorts Factory -->
-                <div class="project-card quizbot">
+                <div class="project-card viralshorts">
                     <div class="project-header">
                         <div class="project-icon">🎬</div>
                         <span class="project-name">ViralShorts Factory</span>
-                        <span class="project-status status-active" id="quizbot-status">Active</span>
+                        <span class="project-status status-active" id="viralshorts-status">Active</span>
                     </div>
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">
                         AI-generated viral videos: Would You Rather, Facts, Motivation & more
@@ -395,8 +395,8 @@
                     <p style="color: var(--text-secondary); font-size: 0.8rem;">*Limited by YouTube API quota. Generates 18 videos, uploads 6.</p>
                     <div class="project-links">
                         <a href="https://www.youtube.com/channel/UC4Y6O0ubwl0_ZQsLq2EteTQ" target="_blank" class="project-link">📺 YouTube</a>
-                        <a href="https://github.com/asaadbalum2/QuizBot-Shorts/actions" target="_blank" class="project-link">⚙️ Workflows</a>
-                        <a href="https://github.com/asaadbalum2/QuizBot-Shorts" target="_blank" class="project-link">💻 Source</a>
+                        <a href="https://github.com/asaadbalum2/ViralShorts-Factory/actions" target="_blank" class="project-link">⚙️ Workflows</a>
+                        <a href="https://github.com/asaadbalum2/ViralShorts-Factory" target="_blank" class="project-link">💻 Source</a>
                     </div>
                 </div>
 
@@ -475,7 +475,7 @@
                     </div>
                     <p style="color: var(--text-secondary);">Browse all T-shirt designs (120/day)</p>
                 </a>
-                <a href="https://github.com/asaadbalum2/QuizBot-Shorts/actions" target="_blank" class="project-card" style="text-decoration: none; cursor: pointer;">
+                <a href="https://github.com/asaadbalum2/ViralShorts-Factory/actions" target="_blank" class="project-card" style="text-decoration: none; cursor: pointer;">
                     <div class="project-header">
                         <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">🎬</div>
                         <span class="project-name">Video Previews</span>
@@ -565,10 +565,10 @@
 
     <script>
         const GITHUB_USERNAME = 'asaadbalum2';
-        const REPOS = ['QuizBot-Shorts', 'GlobalDub', 'TrendMerch'];
+        const REPOS = ['ViralShorts-Factory', 'GlobalDub', 'TrendMerch'];
         
         const OUTPUT_PER_RUN = {
-            'QuizBot-Shorts': { type: 'videos', count: 3, maxDaily: 6 },
+            'ViralShorts-Factory': { type: 'videos', count: 3, maxDaily: 6 },
             'GlobalDub': { type: 'videos', count: 2, maxDaily: 6 },
             'TrendMerch': { type: 'designs', count: 10, maxDaily: 120 }
         };
@@ -690,7 +690,7 @@
 
             // Fetch QuizBot artifacts (video previews)
             try {
-                const runsRes = await fetch('https://api.github.com/repos/asaadbalum2/QuizBot-Shorts/actions/runs?per_page=5');
+                const runsRes = await fetch('https://api.github.com/repos/asaadbalum2/ViralShorts-Factory/actions/runs?per_page=5');
                 if (runsRes.ok) {
                     const runsData = await runsRes.json();
                     const successRuns = (runsData.workflow_runs || []).filter(r => r.conclusion === 'success');
@@ -700,7 +700,7 @@
                             <div class="activity-item">
                                 <div class="activity-icon success">🎬</div>
                                 <div class="activity-content">
-                                    <div class="activity-title">QuizBot Video (Run #${run.run_number})</div>
+                                    <div class="activity-title">ViralShorts Video (Run #${run.run_number})</div>
                                     <div class="activity-time">${time}</div>
                                 </div>
                                 <a href="${run.html_url}#artifacts" target="_blank" class="activity-link">Artifacts →</a>

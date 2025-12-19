@@ -8,7 +8,7 @@ Live status dashboard for autonomous content generation projects.
 
 ## Projects Tracked
 
-- **QuizBot Shorts** - AI-generated quiz videos
+- **ViralShorts Factory** - AI-generated quiz videos
 - **GlobalDub** - Multi-language video dubbing
 - **TrendMerch** - Trending T-shirt designs
 
