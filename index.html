@@ -456,22 +456,29 @@
                         <div class="project-icon" style="background: rgba(255, 0, 0, 0.2);">📺</div>
                         <span class="project-name">YouTube Shorts</span>
                     </div>
-                    <p style="color: var(--text-secondary);">View all uploaded quiz videos and dubbed content</p>
+                    <p style="color: var(--text-secondary);">View all uploaded quiz videos (post-upload)</p>
                 </a>
                 <a href="https://github.com/asaadbalum2/TrendMerch/releases" target="_blank" class="project-card" style="text-decoration: none; cursor: pointer;">
                     <div class="project-header">
                         <div class="project-icon" style="background: rgba(255, 107, 53, 0.2);">👕</div>
                         <span class="project-name">Design Gallery</span>
                     </div>
-                    <p style="color: var(--text-secondary);">Browse all generated T-shirt designs</p>
+                    <p style="color: var(--text-secondary);">Browse all T-shirt designs (120/day)</p>
                 </a>
                 <a href="https://github.com/asaadbalum2/QuizBot-Shorts/actions" target="_blank" class="project-card" style="text-decoration: none; cursor: pointer;">
                     <div class="project-header">
-                        <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">⚙️</div>
-                        <span class="project-name">Workflow Logs</span>
+                        <div class="project-icon" style="background: rgba(0, 255, 136, 0.2);">🎬</div>
+                        <span class="project-name">Video Previews</span>
                     </div>
-                    <p style="color: var(--text-secondary);">View detailed run logs and output</p>
+                    <p style="color: var(--text-secondary);">Download artifacts before upload (test runs)</p>
                 </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">📦 Latest Generated Content</h2>
+            <div id="content-list" class="activity-list">
+                <div class="loading"><div class="spinner"></div></div>
             </div>
         </section>
 
@@ -587,8 +594,73 @@
                 '<div class="activity-item"><div class="activity-content" style="color: var(--text-secondary);">No workflow runs yet. They will appear here once started!</div></div>';
         }
 
+        async function fetchLatestContent() {
+            const contentList = document.getElementById('content-list');
+            let contentHtml = '';
+            
+            // Fetch TrendMerch releases (designs)
+            try {
+                const releasesRes = await fetch('https://api.github.com/repos/asaadbalum2/TrendMerch/releases?per_page=5');
+                if (releasesRes.ok) {
+                    const releases = await releasesRes.json();
+                    releases.forEach(release => {
+                        const time = new Date(release.created_at).toLocaleString();
+                        const assetCount = release.assets.length;
+                        contentHtml += `
+                            <div class="activity-item">
+                                <div class="activity-icon success">👕</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">TrendMerch: ${assetCount} design(s)</div>
+                                    <div class="activity-time">${time}</div>
+                                </div>
+                                <a href="${release.html_url}" target="_blank" class="activity-link">View →</a>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (e) { console.error('Releases fetch error:', e); }
+
+            // Fetch QuizBot artifacts (video previews)
+            try {
+                const runsRes = await fetch('https://api.github.com/repos/asaadbalum2/QuizBot-Shorts/actions/runs?per_page=5');
+                if (runsRes.ok) {
+                    const runsData = await runsRes.json();
+                    const successRuns = (runsData.workflow_runs || []).filter(r => r.conclusion === 'success');
+                    for (const run of successRuns.slice(0, 3)) {
+                        const time = new Date(run.created_at).toLocaleString();
+                        contentHtml += `
+                            <div class="activity-item">
+                                <div class="activity-icon success">🎬</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">QuizBot Video (Run #${run.run_number})</div>
+                                    <div class="activity-time">${time}</div>
+                                </div>
+                                <a href="${run.html_url}#artifacts" target="_blank" class="activity-link">Artifacts →</a>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (e) { console.error('Artifacts fetch error:', e); }
+
+            // Add YouTube channel link
+            contentHtml += `
+                <div class="activity-item" style="border-top: 1px solid var(--border);">
+                    <div class="activity-icon" style="background: rgba(255, 0, 0, 0.2); color: #ff0000;">📺</div>
+                    <div class="activity-content">
+                        <div class="activity-title">YouTube Channel (All Uploaded Videos)</div>
+                        <div class="activity-time">Uploaded videos appear here</div>
+                    </div>
+                    <a href="https://www.youtube.com/channel/UC4Y6O0ubwl0_ZQsLq2EteTQ/shorts" target="_blank" class="activity-link">Watch →</a>
+                </div>
+            `;
+
+            contentList.innerHTML = contentHtml || '<div class="activity-item"><div class="activity-content" style="color: var(--text-secondary);">No content yet</div></div>';
+        }
+
         updateDashboard();
+        fetchLatestContent();
         setInterval(updateDashboard, 5 * 60 * 1000);
+        setInterval(fetchLatestContent, 5 * 60 * 1000);
     </script>
 </body>
 </html>
